@@ -43,11 +43,11 @@ class Repository(Base):
         nullable=False,
     )
     name: Mapped[str] = mapped_column(
-        String(255),
+        String(512),
         nullable=False,
     )
     full_name: Mapped[str] = mapped_column(
-        String(255),
+        String(512),
         nullable=False,
     )
     provider: Mapped[str] = mapped_column(

@@ -53,7 +53,7 @@ class PullRequest(Base):
         nullable=False,
     )
     title: Mapped[str] = mapped_column(
-        String(255),
+        String(512),
         nullable=False,
     )
     body: Mapped[str | None] = mapped_column(
@@ -95,6 +95,11 @@ class PullRequest(Base):
         nullable=False,
     )
     provider_updated_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True),
+        nullable=True,
+        default=None,
+    )
+    closed_at: Mapped[datetime | None] = mapped_column(
         DateTime(timezone=True),
         nullable=True,
         default=None,

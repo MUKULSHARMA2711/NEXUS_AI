@@ -55,11 +55,11 @@ class Issue(Base):
         default=None,
     )
     key: Mapped[str] = mapped_column(
-        String(100),
+        String(255),
         nullable=False,
     )
     title: Mapped[str] = mapped_column(
-        String(255),
+        String(512),
         nullable=False,
     )
     body: Mapped[str | None] = mapped_column(
@@ -99,6 +99,11 @@ class Issue(Base):
     opened_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         nullable=False,
+    )
+    provider_updated_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True),
+        nullable=True,
+        default=None,
     )
     closed_at: Mapped[datetime | None] = mapped_column(
         DateTime(timezone=True),
