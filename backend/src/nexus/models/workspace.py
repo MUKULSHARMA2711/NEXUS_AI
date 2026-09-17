@@ -8,6 +8,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from nexus.db.base import Base
 
 if TYPE_CHECKING:
+    from nexus.models.issue import Issue
     from nexus.models.repository import Repository
 
 
@@ -51,6 +52,13 @@ class Workspace(Base):
 
     # 1 -> N relationship with Repository
     repositories: Mapped[list["Repository"]] = relationship(
+        back_populates="workspace",
+        cascade="all, delete-orphan",
+        passive_deletes=True,
+    )
+
+    # 1 -> N relationship with Issue
+    issues: Mapped[list["Issue"]] = relationship(
         back_populates="workspace",
         cascade="all, delete-orphan",
         passive_deletes=True,
