@@ -1,6 +1,6 @@
 from functools import lru_cache
 
-from pydantic import field_validator
+from pydantic import SecretStr, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -17,6 +17,8 @@ class Settings(BaseSettings):
     app_version: str = "0.1.0"
     environment: str = "development"
     database_url: str = "postgresql+psycopg://postgres:postgres@localhost:5432/nexus"
+    github_token: SecretStr | None = None
+    github_api_url: str = "https://api.github.com"
 
     @field_validator("database_url", mode="before")
     @classmethod
@@ -28,9 +30,9 @@ class Settings(BaseSettings):
         if v.startswith("postgresql+psycopg2://"):
             return v
         if v.startswith("postgresql://"):
-            return "postgresql+psycopg://" + v[len("postgresql://"):]
+            return "postgresql+psycopg://" + v[len("postgresql://") :]
         if v.startswith("postgres://"):
-            return "postgresql+psycopg://" + v[len("postgres://"):]
+            return "postgresql+psycopg://" + v[len("postgres://") :]
         return v
 
 
