@@ -8,6 +8,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from nexus.db.base import Base
 
 if TYPE_CHECKING:
+    from nexus.models.commit import Commit
     from nexus.models.workspace import Workspace
 
 
@@ -84,6 +85,13 @@ class Repository(Base):
     # N -> 1 relationship with Workspace
     workspace: Mapped["Workspace"] = relationship(
         back_populates="repositories",
+    )
+
+    # 1 -> N relationship with Commit
+    commits: Mapped[list["Commit"]] = relationship(
+        back_populates="repository",
+        cascade="all, delete-orphan",
+        passive_deletes=True,
     )
 
     def __repr__(self) -> str:

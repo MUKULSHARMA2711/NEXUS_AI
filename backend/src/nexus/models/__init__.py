@@ -5,7 +5,8 @@ declarations are registered with Base.metadata for migration tooling (e.g.,
 Alembic autogenerate) and metadata discovery across the application.
 """
 
+from nexus.models.commit import Commit
 from nexus.models.repository import Repository
 from nexus.models.workspace import Workspace
 
-__all__ = ["Repository", "Workspace"]
+__all__ = ["Commit", "Repository", "Workspace"]
