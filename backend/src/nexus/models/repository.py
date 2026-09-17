@@ -9,6 +9,7 @@ from nexus.db.base import Base
 
 if TYPE_CHECKING:
     from nexus.models.commit import Commit
+    from nexus.models.pull_request import PullRequest
     from nexus.models.workspace import Workspace
 
 
@@ -89,6 +90,13 @@ class Repository(Base):
 
     # 1 -> N relationship with Commit
     commits: Mapped[list["Commit"]] = relationship(
+        back_populates="repository",
+        cascade="all, delete-orphan",
+        passive_deletes=True,
+    )
+
+    # 1 -> N relationship with PullRequest
+    pull_requests: Mapped[list["PullRequest"]] = relationship(
         back_populates="repository",
         cascade="all, delete-orphan",
         passive_deletes=True,
