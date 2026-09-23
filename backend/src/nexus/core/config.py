@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     database_url: str = "postgresql+psycopg://postgres:postgres@localhost:5432/nexus"
     github_token: SecretStr | None = None
     github_api_url: str = "https://api.github.com"
+    github_sync_max_pages: int = 100
 
     @field_validator("database_url", mode="before")
     @classmethod

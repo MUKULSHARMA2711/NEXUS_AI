@@ -38,9 +38,11 @@ class RateLimitedError(ConnectorError):
         self,
         message: str = "GitHub API rate limit exceeded",
         retry_at: float | None = None,
+        retry_after: float | None = None,
     ) -> None:
         super().__init__(message, retryable=True)
         self.retry_at = retry_at
+        self.retry_after = retry_after
 
 
 class TransientError(ConnectorError):
